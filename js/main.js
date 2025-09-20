@@ -10,6 +10,83 @@ for (const link of links) {
   });
 }
 
+// Hero Slider functionality
+let currentSlide = 0;
+const slides = document.querySelectorAll('.hero-slide');
+const dots = document.querySelectorAll('.hero-dot');
+const prevBtn = document.getElementById('hero-prev');
+const nextBtn = document.getElementById('hero-next');
+let slideInterval;
+
+function showSlide(index) {
+  // Remove active class from all slides and dots
+  slides.forEach(slide => slide.classList.remove('active'));
+  dots.forEach(dot => dot.classList.remove('active'));
+  
+  // Add active class to current slide and dot
+  slides[index].classList.add('active');
+  dots[index].classList.add('active');
+  
+  currentSlide = index;
+}
+
+function nextSlide() {
+  currentSlide = (currentSlide + 1) % slides.length;
+  showSlide(currentSlide);
+}
+
+function prevSlide() {
+  currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+  showSlide(currentSlide);
+}
+
+function startSlider() {
+  slideInterval = setInterval(nextSlide, 4000); // Auto-slide every 4 seconds
+}
+
+function stopSlider() {
+  clearInterval(slideInterval);
+}
+
+// Event listeners for slider controls
+if (nextBtn) {
+  nextBtn.addEventListener('click', () => {
+    stopSlider();
+    nextSlide();
+    startSlider();
+  });
+}
+
+if (prevBtn) {
+  prevBtn.addEventListener('click', () => {
+    stopSlider();
+    prevSlide();
+    startSlider();
+  });
+}
+
+// Event listeners for dots
+dots.forEach((dot, index) => {
+  dot.addEventListener('click', () => {
+    stopSlider();
+    showSlide(index);
+    startSlider();
+  });
+});
+
+// Pause slider on hover
+const heroSlider = document.getElementById('hero-slider');
+if (heroSlider) {
+  heroSlider.addEventListener('mouseenter', stopSlider);
+  heroSlider.addEventListener('mouseleave', startSlider);
+}
+
+// Initialize slider
+if (slides.length > 0) {
+  showSlide(0);
+  startSlider();
+}
+
 // Hamburger menu toggle for mobile
 const navToggle = document.getElementById('nav-toggle');
 const mobileMenu = document.getElementById('mobile-menu');
@@ -38,179 +115,59 @@ window.addEventListener('scroll', () => {
   });
 });
 
-// Product modal logic
-const modal = document.getElementById('product-modal');
-const modalImg = document.getElementById('modal-img');
-const modalTitle = document.getElementById('modal-title');
-const modalDesc = document.getElementById('modal-desc');
-const modalClose = document.getElementById('modal-close');
-const productCards = document.querySelectorAll('.product-card');
-const modalBox = modal.querySelector('div.relative');
+// Mobile Gallery Auto-slide functionality
+let mobileGalleryInterval;
+let currentMobileSlide = 0;
+const mobileGallery = document.querySelector('.mobile-gallery-scroll');
+const mobileGalleryItems = document.querySelectorAll('.mobile-gallery-scroll > a');
 
-// Product images for each product (by title)
-const productImagesMap = {
-  'Modern Bed': [
-    'assets/images/SofaCumBed.png',
-    'assets/images/sofaCumBed2.png',
-  ],
-  'Classic Armchair': [
-    'assets/images/RestChair.png',
-  ],
-  'Table': [
-    'assets/images/Table1.png',
-  ],
-  'Wooden Bed': [
-    'assets/images/Bed.png',
-  ],
-  'Dining Table': [
-    'assets/images/diningTable.png',
-  ],
-  'Recliner': [
-    'assets/images/recliner.png',
-  ],
-  'Cupboard': [
-    'assets/images/cupboard.png',
-  ],
-  'Rest Chair': [
-    'assets/images/chairs.png',
-  ],
-  'Sitting Chair': [
-    'assets/images/sittings.png',
-  ],
-  'Sofa Set': [
-    'assets/images/sofaSet1.png',
-    'assets/images/sofaSet2.png',
-  ],
-  'Accent Chair': [
-    'https://images.unsplash.com/photo-1468436139062-f60a71c5c892?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1468436139062-f60a71c5c892?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80'
-  ],
-  'Sideboard': [
-    'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80'
-  ],
-  'Work Desk': [
-    'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?auto=format&fit=crop&w=600&q=80'
-  ]
-};
+function startMobileGallerySlide() {
+  if (window.innerWidth <= 640 && mobileGalleryItems.length > 0) {
+    mobileGalleryInterval = setInterval(() => {
+      currentMobileSlide = (currentMobileSlide + 1) % mobileGalleryItems.length;
+      mobileGalleryItems[currentMobileSlide].scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'center'
+      });
+    }, 3000); // Auto-slide every 3 seconds
+  }
+}
 
-const carouselImages = document.getElementById('carousel-images');
-const carouselPrev = document.getElementById('carousel-prev');
-const carouselNext = document.getElementById('carousel-next');
-const carouselDots = document.getElementById('carousel-dots');
-let currentCarouselIdx = 0;
-let currentCarouselImgs = [];
+function stopMobileGallerySlide() {
+  if (mobileGalleryInterval) {
+    clearInterval(mobileGalleryInterval);
+    mobileGalleryInterval = null;
+  }
+}
 
-function updateCarousel(idx) {
-  if (!currentCarouselImgs.length) return;
-  carouselImages.style.transform = `translateX(-${idx * 100}%)`;
-  // Update dots
-  Array.from(carouselDots.children).forEach((dot, i) => {
-    dot.classList.toggle('bg-[#8d6e63]', i === idx);
-    dot.classList.toggle('bg-[#d7ccc8]', i !== idx);
+// Initialize mobile gallery auto-slide
+if (window.innerWidth <= 640) {
+  startMobileGallerySlide();
+}
+
+// Pause auto-slide on hover/touch
+if (mobileGallery) {
+  mobileGallery.addEventListener('mouseenter', stopMobileGallerySlide);
+  mobileGallery.addEventListener('mouseleave', () => {
+    if (window.innerWidth <= 640) {
+      startMobileGallerySlide();
+    }
   });
-  // Handle arrow visibility
-  if (carouselPrev) {
-    if (idx === 0) {
-      carouselPrev.style.display = 'none';
-    } else {
-      carouselPrev.style.display = '';
+  
+  // Pause on touch start, resume on touch end
+  mobileGallery.addEventListener('touchstart', stopMobileGallerySlide);
+  mobileGallery.addEventListener('touchend', () => {
+    if (window.innerWidth <= 640) {
+      setTimeout(() => startMobileGallerySlide(), 2000); // Resume after 2 seconds
     }
-  }
-  if (carouselNext) {
-    if (idx === currentCarouselImgs.length - 1) {
-      carouselNext.style.display = 'none';
-    } else {
-      carouselNext.style.display = '';
-    }
-  }
-}
-
-function openProductModal(title, desc) {
-  currentCarouselImgs = productImagesMap[title] || [];
-  let imgClass = "w-full h-56 sm:h-80 object-cover rounded-xl border-4 border-[#f8f5f2] shadow flex-shrink-0";
-  if (title === 'Classic Armchair' || title === 'Rest Chair' || title === 'Recliner') {
-    imgClass = "w-full h-56 sm:h-80 object-contain bg-[#f8f5f2] rounded-xl border-4 border-[#f8f5f2] shadow flex-shrink-0";
-  } 
-  if (title === 'Cupboard') {
-    imgClass = "h-56 sm:h-80 object-top bg-[#f8f5f2] rounded-xl border-4 border-[#f8f5f2] shadow flex-shrink-0";
-  }
-  carouselImages.innerHTML = currentCarouselImgs.map(img => `<img src="${img}" class="${imgClass}" style="min-width:100%;max-width:100%">`).join('');
-  carouselDots.innerHTML = currentCarouselImgs.map((_, i) => `<button class="w-3 h-3 rounded-full ${i === 0 ? 'bg-[#8d6e63]' : 'bg-[#d7ccc8]'}"></button>`).join('');
-  currentCarouselIdx = 0;
-  updateCarousel(currentCarouselIdx);
-  modalTitle.textContent = title;
-  modalDesc.textContent = desc;
-  modal.classList.add('modal-open');
-  modal.classList.remove('hidden');
-  setTimeout(() => {
-    modalBox.classList.remove('scale-95', 'opacity-0');
-    modalBox.classList.add('scale-100', 'opacity-100');
-  }, 10);
-  document.body.style.overflow = 'hidden';
-}
-
-productCards.forEach(card => {
-  card.addEventListener('click', () => {
-    openProductModal(card.getAttribute('data-title'), card.getAttribute('data-desc'));
   });
-});
-
-carouselPrev.addEventListener('click', () => {
-  if (currentCarouselIdx > 0) {
-    currentCarouselIdx--;
-    updateCarousel(currentCarouselIdx);
-  }
-});
-carouselNext.addEventListener('click', () => {
-  if (currentCarouselIdx < currentCarouselImgs.length - 1) {
-    currentCarouselIdx++;
-    updateCarousel(currentCarouselIdx);
-  }
-});
-carouselDots.addEventListener('click', (e) => {
-  if (e.target.tagName === 'BUTTON') {
-    const idx = Array.from(carouselDots.children).indexOf(e.target);
-    if (idx !== -1) {
-      currentCarouselIdx = idx;
-      updateCarousel(currentCarouselIdx);
-    }
-  }
-});
-
-// Swipe support for mobile
-let startX = null;
-carouselImages.addEventListener('touchstart', (e) => {
-  startX = e.touches[0].clientX;
-});
-carouselImages.addEventListener('touchend', (e) => {
-  if (startX === null) return;
-  const endX = e.changedTouches[0].clientX;
-  if (endX - startX > 40 && currentCarouselIdx > 0) {
-    currentCarouselIdx--;
-    updateCarousel(currentCarouselIdx);
-  } else if (startX - endX > 40 && currentCarouselIdx < currentCarouselImgs.length - 1) {
-    currentCarouselIdx++;
-    updateCarousel(currentCarouselIdx);
-  }
-  startX = null;
-});
-
-function closeModal() {
-  modalBox.classList.remove('scale-100', 'opacity-100');
-  modalBox.classList.add('scale-95', 'opacity-0');
-  setTimeout(() => {
-    modal.classList.remove('modal-open');
-    modal.classList.add('hidden');
-    document.body.style.overflow = '';
-  }, 200);
 }
 
-modalClose.addEventListener('click', closeModal);
-modal.addEventListener('click', (e) => {
-  if (e.target === modal) closeModal();
+// Handle window resize
+window.addEventListener('resize', () => {
+  stopMobileGallerySlide();
+  if (window.innerWidth <= 640) {
+    startMobileGallerySlide();
+  }
 });

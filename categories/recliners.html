@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recliners - Jinendra Furniture</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    body { font-family: 'Lato', sans-serif; }
+    h1, h2, h3, .font-logo { font-family: 'Playfair Display', serif; }
+    html { scroll-behavior: smooth; }
+    .active-link { color: #8d6e63 !important; font-weight: bold; }
+  </style>
+</head>
+<body class="bg-[#f8f5f2] text-[#3e2723]">
+  <!-- Modern Navbar -->
+  <header class="fixed w-full z-30 top-0 left-0">
+    <nav class="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 bg-white/60 backdrop-blur-md shadow-md transition-all duration-300">
+      <div class="flex items-center gap-3">
+        <div class="logo-container relative">
+          <img src="../assets/logo.png" alt="Jinendra Furniture Logo" class="h-12 sm:h-[50px] w-12 sm:w-[50px]">
+        </div>
+        <div class="font-logo text-xl sm:text-2xl font-bold tracking-wide text-[#3e2723]">Jinendra <span class="text-[#8d6e63]">Furniture</span></div>
+      </div>
+      <button id="nav-toggle" class="md:hidden text-[#3e2723] focus:outline-none">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <ul id="nav-menu" class="hidden md:flex gap-6 sm:gap-8 text-base sm:text-lg font-semibold">
+        <li><a href="../index.html#gallery" class="nav-link hover:text-[#8d6e63] transition">Gallery</a></li>
+        <li><a href="../index.html#about" class="nav-link hover:text-[#8d6e63] transition">About</a></li>
+        <li><a href="../index.html#contact" class="nav-link hover:text-[#8d6e63] transition">Contact</a></li>
+      </ul>
+    </nav>
+    <!-- Mobile Menu -->
+    <ul id="mobile-menu" class="md:hidden bg-white/95 shadow-lg fixed top-14 left-0 w-full hidden flex-col gap-2 text-base font-semibold z-40 rounded-b-lg">
+      <li><a href="../index.html#gallery" class="nav-link block px-6 py-3 border-b border-[#eee]">Gallery</a></li>
+      <li><a href="../index.html#about" class="nav-link block px-6 py-3 border-b border-[#eee]">About</a></li>
+      <li><a href="../index.html#contact" class="nav-link block px-6 py-3">Contact</a></li>
+    </ul>
+  </header>
+
+  <!-- Category Hero Section -->
+  <section class="pt-20 pb-12 bg-gradient-to-br from-[#3e2723] to-[#5d4037]">
+    <div class="max-w-6xl mx-auto px-4 text-center">
+      <h1 class="font-logo text-4xl sm:text-5xl md:text-6xl text-white m-4" data-aos="fade-up">Recliners Collection</h1>
+      <p class="text-lg sm:text-xl text-white/90 mb-8" data-aos="fade-up" data-aos-delay="100">Ultimate comfort and relaxation with our premium recliner chairs</p>
+      <a href="../index.html#gallery" class="inline-flex items-center gap-2 bg-[#8d6e63] hover:bg-[#6d4c41] text-white px-6 py-3 rounded-lg transition duration-300" data-aos="fade-up" data-aos-delay="200">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        Back to Gallery
+      </a>
+    </div>
+  </section>
+
+  <!-- Products Grid -->
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <!-- Product 1 -->
+        <div class="group bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300" data-aos="fade-up">
+          <div class="aspect-square overflow-hidden">
+            <img src="../assets/images/recliner.png" alt="Classic Recliner" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+          </div>
+          <div class="p-6">
+            <h3 class="font-logo text-xl font-bold text-[#3e2723] mb-2">Classic Recliner</h3>
+            <p class="text-[#5d4037] text-sm mb-4">Traditional recliner with plush cushioning and smooth reclining mechanism.</p>
+          </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="group bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+          <div class="aspect-square overflow-hidden">
+            <img src="../assets/images/WhatsApp Image 2025-09-20 at 10.53.40 AM (2).jpeg" alt="Massage Recliner" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+          </div>
+          <div class="p-6">
+            <h3 class="font-logo text-xl font-bold text-[#3e2723] mb-2">Massage Recliner</h3>
+            <p class="text-[#5d4037] text-sm mb-4">Premium recliner with built-in massage function for ultimate relaxation.</p>
+          </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="group bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
+          <div class="aspect-square overflow-hidden">
+            <img src="../assets/images/WhatsApp Image 2025-09-20 at 10.53.41 AM.jpeg" alt="Leather Recliner" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+          </div>
+          <div class="p-6">
+            <h3 class="font-logo text-xl font-bold text-[#3e2723] mb-2">Leather Recliner</h3>
+            <p class="text-[#5d4037] text-sm mb-4">Luxurious leather recliner with premium finish and comfortable seating.</p>
+          </div>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="group bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
+          <div class="aspect-square overflow-hidden">
+            <img src="../assets/images/WhatsApp Image 2025-09-20 at 10.53.42 AM.jpeg" alt="Rocking Recliner" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+          </div>
+          <div class="p-6">
+            <h3 class="font-logo text-xl font-bold text-[#3e2723] mb-2">Rocking Recliner</h3>
+            <p class="text-[#5d4037] text-sm mb-4">Comfortable rocking recliner perfect for relaxation and gentle movement.</p>
+          </div>
+        </div>
+
+        <!-- Product 5 -->
+        <div class="group bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300" data-aos="fade-up" data-aos-delay="400">
+          <div class="aspect-square overflow-hidden">
+            <img src="../assets/images/WhatsApp Image 2025-09-20 at 10.53.43 AM.jpeg" alt="Wall Hugger Recliner" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+          </div>
+          <div class="p-6">
+            <h3 class="font-logo text-xl font-bold text-[#3e2723] mb-2">Wall Hugger Recliner</h3>
+            <p class="text-[#5d4037] text-sm mb-4">Space-saving recliner that doesn't require wall clearance for full recline.</p>
+          </div>
+        </div>
+
+        <!-- Product 6 -->
+        <div class="group bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300" data-aos="fade-up" data-aos-delay="500">
+          <div class="aspect-square overflow-hidden">
+            <img src="../assets/images/WhatsApp Image 2025-09-20 at 10.53.43 AM (2).jpeg" alt="Lift Chair Recliner" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+          </div>
+          <div class="p-6">
+            <h3 class="font-logo text-xl font-bold text-[#3e2723] mb-2">Lift Chair Recliner</h3>
+            <p class="text-[#5d4037] text-sm mb-4">Power lift recliner with motorized assistance for easy standing and sitting.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="py-16 bg-[#3e2723]">
+    <div class="max-w-4xl mx-auto text-center px-4">
+      <h2 class="font-logo text-3xl sm:text-4xl text-white mb-6" data-aos="fade-up">Experience Ultimate Comfort</h2>
+      <p class="text-lg text-white/90 mb-8" data-aos="fade-up" data-aos-delay="100">Find the perfect recliner for your relaxation needs and comfort preferences.</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="200">
+        <a href="../index.html#contact" class="bg-[#8d6e63] hover:bg-[#6d4c41] text-white px-8 py-3 rounded-lg transition duration-300">
+          Contact Us
+        </a>
+        <a href="../index.html#gallery" class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-[#3e2723] px-8 py-3 rounded-lg transition duration-300">
+          View All Categories
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script src="../js/main.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      once: true
+    });
+  </script>
+</body>
+</html>

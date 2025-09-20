@@ -19,22 +19,66 @@
         scroll-snap-type: x mandatory;
         gap: 1rem;
         padding-bottom: 0.5rem;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
       }
-      .mobile-gallery-scroll > div {
-        min-width: 80vw;
+      .mobile-gallery-scroll::-webkit-scrollbar {
+        display: none;
+      }
+      .mobile-gallery-scroll > a {
+        min-width: 85vw;
+        max-width: 85vw;
         scroll-snap-align: center;
+        flex-shrink: 0;
       }
     }
     /* Modal overlay styles */
     .modal-bg { background: rgba(30, 20, 10, 0.7); }
     .modal-open { display: flex !important; }
+    
+    /* Hero Slider Styles */
+    .hero-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+    .hero-slide.active {
+      opacity: 1;
+    }
+    .hero-dot.active {
+      background-color: rgba(255, 255, 255, 1) !important;
+      transform: scale(1.2);
+    }
+    
+    /* Logo styling */
+    .logo-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .logo-container img {
+      object-fit: cover;
+      object-position: center;
+      border: none;
+      outline: none;
+      box-shadow: none;
+    }
   </style>
 </head>
 <body class="bg-[#f8f5f2] text-[#3e2723]">
   <!-- Modern Navbar -->
   <header class="fixed w-full z-30 top-0 left-0">
     <nav class="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 bg-white/60 backdrop-blur-md shadow-md transition-all duration-300">
-      <div class="font-logo text-xl sm:text-2xl font-bold tracking-wide text-[#3e2723]">Jinendra <span class="text-[#8d6e63]">Furniture</span></div>
+      <div class="flex items-center gap-3">
+        <div class="logo-container relative">
+            <img src="assets/logo.png" alt="Jinendra Furniture Logo" class="h-12 sm:h-[50px] w-12 sm:w-[50px]">
+        </div>
+        <div class="font-logo text-xl sm:text-2xl font-bold tracking-wide text-[#3e2723]">Jinendra <span class="text-[#8d6e63]">Furniture</span></div>
+      </div>
       <button id="nav-toggle" class="md:hidden text-[#3e2723] focus:outline-none">
         <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
       </button>
@@ -51,17 +95,100 @@
       <li><a href="#contact" class="nav-link block px-6 py-3">Contact</a></li>
     </ul>
   </header>
-  <!-- Hero Section -->
-  <!-- https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=1500&q=80 -->
-  <!-- https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=1500&q=80 -->
-  <section id="home" class="relative h-screen flex items-center justify-center" style="background-image: url('https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1500&q=80'); background-size: cover; background-position: center;">
-    <div class="absolute inset-0 bg-[#3e2723]/60"></div>
-    <div class="relative z-10 text-center text-white px-4" data-aos="fade-up">
-      <h1 class="font-logo text-4xl sm:text-5xl md:text-7xl mb-4 drop-shadow-lg leading-tight">Jinendra Furniture</h1>
-      <p class="text-lg sm:text-xl md:text-2xl mb-8 font-light">Crafting comfort since 1999</p>
-      <a href="#gallery" class="inline-block animate-bounce mt-8 sm:mt-12">
-        <svg class="w-8 h-8 sm:w-10 sm:h-10 mx-auto text-white/80" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-      </a>
+  <!-- Hero Section with Slider -->
+  <section id="home" class="relative h-screen overflow-hidden">
+    <!-- Hero Slider -->
+    <div id="hero-slider" class="relative w-full h-full">
+      <!-- Slide 1 (was Slide 3) -->
+      <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=1500&q=80'); background-size: cover; background-position: center;">
+        <div class="absolute inset-0 bg-[#3e2723]/60"></div>
+        <div class="relative z-10 flex items-center justify-center h-full">
+          <div class="text-center text-white px-4" data-aos="fade-up">
+            <h1 class="font-logo text-4xl sm:text-5xl md:text-7xl mb-4 drop-shadow-lg leading-tight">Jinendra Furniture</h1>
+            <p class="text-lg sm:text-xl md:text-2xl mb-8 font-light">Crafting comfort since 1999</p>
+            <a href="#gallery" class="inline-block animate-bounce mt-8 sm:mt-12">
+              <svg class="w-8 h-8 sm:w-10 sm:h-10 mx-auto text-white/80" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Slide 2 -->
+      <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=1500&q=80'); background-size: cover; background-position: center;">
+        <div class="absolute inset-0 bg-[#3e2723]/60"></div>
+        <div class="relative z-10 flex items-center justify-center h-full">
+          <div class="text-center text-white px-4" data-aos="fade-up">
+            <h1 class="font-logo text-4xl sm:text-5xl md:text-7xl mb-4 drop-shadow-lg leading-tight">Premium Quality</h1>
+            <p class="text-lg sm:text-xl md:text-2xl mb-8 font-light">100% Solid Teak Wood Furniture</p>
+            <a href="#gallery" class="inline-block animate-bounce mt-8 sm:mt-12">
+              <svg class="w-8 h-8 sm:w-10 sm:h-10 mx-auto text-white/80" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Slide 3 (was Slide 1) -->
+      <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1500&q=80'); background-size: cover; background-position: center;">
+        <div class="absolute inset-0 bg-[#3e2723]/60"></div>
+        <div class="relative z-10 flex items-center justify-center h-full">
+          <div class="text-center text-white px-4" data-aos="fade-up">
+            <h1 class="font-logo text-4xl sm:text-5xl md:text-7xl mb-4 drop-shadow-lg leading-tight">Custom Designs</h1>
+            <p class="text-lg sm:text-xl md:text-2xl mb-8 font-light">Tailored to Your Space</p>
+            <a href="#gallery" class="inline-block animate-bounce mt-8 sm:mt-12">
+              <svg class="w-8 h-8 sm:w-10 sm:h-10 mx-auto text-white/80" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Slide 4 -->
+      <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=1500&q=80'); background-size: cover; background-position: center;">
+        <div class="absolute inset-0 bg-[#3e2723]/60"></div>
+        <div class="relative z-10 flex items-center justify-center h-full">
+          <div class="text-center text-white px-4" data-aos="fade-up">
+            <h1 class="font-logo text-4xl sm:text-5xl md:text-7xl mb-4 drop-shadow-lg leading-tight">Expert Craftsmanship</h1>
+            <p class="text-lg sm:text-xl md:text-2xl mb-8 font-light">Over 20 Years of Excellence</p>
+            <a href="#gallery" class="inline-block animate-bounce mt-8 sm:mt-12">
+              <svg class="w-8 h-8 sm:w-10 sm:h-10 mx-auto text-white/80" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Slide 5 (New Image) -->
+      <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1500&q=80'); background-size: cover; background-position: center;">
+        <div class="absolute inset-0 bg-[#3e2723]/60"></div>
+        <div class="relative z-10 flex items-center justify-center h-full">
+          <div class="text-center text-white px-4" data-aos="fade-up">
+            <h1 class="font-logo text-4xl sm:text-5xl md:text-7xl mb-4 drop-shadow-lg leading-tight">Visit Our Showroom</h1>
+            <p class="text-lg sm:text-xl md:text-2xl mb-8 font-light">9,000 sq.ft. Premium Experience</p>
+            <a href="#contact" class="inline-block animate-bounce mt-8 sm:mt-12">
+              <svg class="w-8 h-8 sm:w-10 sm:h-10 mx-auto text-white/80" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Slider Navigation Arrows -->
+    <button id="hero-prev" class="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/30 text-white rounded-full w-12 h-12 flex items-center justify-center transition-all duration-300 backdrop-blur-sm">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+      </svg>
+    </button>
+    <button id="hero-next" class="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/30 text-white rounded-full w-12 h-12 flex items-center justify-center transition-all duration-300 backdrop-blur-sm">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+      </svg>
+    </button>
+    
+    <!-- Slider Dots -->
+    <div id="hero-dots" class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+      <button class="hero-dot w-3 h-3 rounded-full bg-white/60 hover:bg-white/80 transition-all duration-300 active"></button>
+      <button class="hero-dot w-3 h-3 rounded-full bg-white/60 hover:bg-white/80 transition-all duration-300"></button>
+      <button class="hero-dot w-3 h-3 rounded-full bg-white/60 hover:bg-white/80 transition-all duration-300"></button>
+      <button class="hero-dot w-3 h-3 rounded-full bg-white/60 hover:bg-white/80 transition-all duration-300"></button>
+      <button class="hero-dot w-3 h-3 rounded-full bg-white/60 hover:bg-white/80 transition-all duration-300"></button>
     </div>
   </section>
   <!-- Gallery Section -->
@@ -69,150 +196,80 @@
     <h2 class="font-logo text-3xl sm:text-4xl mb-8 sm:mb-10 text-center" data-aos="fade-up">Our Work</h2>
     <!-- Mobile horizontal scroll gallery -->
     <div class="mobile-gallery-scroll sm:grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
-      <div class="relative group overflow-hidden rounded-lg shadow-lg cursor-pointer product-card" data-aos="zoom-in" data-title="Modern Bed" data-img="assets/images/SofaCumBed.png" data-desc="A contemporary sofa crafted with premium wood and plush upholstery, perfect for modern living rooms.">
+      <a href="categories/beds.html" class="relative group overflow-hidden rounded-lg shadow-lg cursor-pointer product-card block" data-aos="zoom-in">
         <img src="assets/images/SofaCumBed.png" alt="Modern Bed" class="w-full h-56 sm:h-64 object-cover transform group-hover:scale-110 transition duration-300" onerror="this.onerror=null;this.src='assets/images/default.png';">
         <div class="absolute inset-0 bg-[#3e2723]/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
           <span class="text-white text-lg sm:text-xl font-logo">Modern Bed</span>
         </div>
-      </div>
-      <div class="relative group overflow-hidden rounded-lg shadow-lg cursor-pointer product-card" data-aos="zoom-in" data-aos-delay="100" data-title="Classic Armchair" data-img="assets/images/RestChair.png" data-desc="A timeless armchair with elegant curves and solid wood frame, ideal for reading nooks or bedrooms.">
+      </a>
+      <a href="categories/chairs.html" class="relative group overflow-hidden rounded-lg shadow-lg cursor-pointer product-card block" data-aos="zoom-in" data-aos-delay="100">
         <img src="assets/images/RestChair.png" alt="Classic Armchair" class="w-full h-56 sm:h-64 object-contain bg-[#f8f5f2] transform group-hover:scale-110 transition duration-300" onerror="this.onerror=null;this.src='assets/images/default.png';">
         <div class="absolute inset-0 bg-[#3e2723]/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
           <span class="text-white text-lg sm:text-xl font-logo">Classic Armchair</span>
         </div>
-      </div>
-      <div class="relative group overflow-hidden rounded-lg shadow-lg cursor-pointer product-card" data-aos="zoom-in" data-aos-delay="200" data-title="Table" data-img="assets/images/Table1.png" data-desc="A spacious dining table made from hand-selected hardwood, perfect for family gatherings.">
+      </a>
+      <a href="categories/tables.html" class="relative group overflow-hidden rounded-lg shadow-lg cursor-pointer product-card block" data-aos="zoom-in" data-aos-delay="200">
         <img src="assets/images/Table1.png" alt="Table" class="w-full h-56 sm:h-64 object-contain bg-[#f8f5f2] transform group-hover:scale-110 transition duration-300" onerror="this.onerror=null;this.src='assets/images/default.png';">
         <div class="absolute inset-0 bg-[#3e2723]/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
           <span class="text-white text-lg sm:text-xl font-logo">Table</span>
         </div>
-      </div>
-      <div class="relative group overflow-hidden rounded-lg shadow-lg cursor-pointer product-card" data-aos="zoom-in" data-title="Wooden Bed" data-img="assets/images/Bed.png" data-desc="A sturdy wooden bed frame with a natural finish, blending comfort and durability for restful nights.">
+      </a>
+      <a href="categories/beds.html" class="relative group overflow-hidden rounded-lg shadow-lg cursor-pointer product-card block" data-aos="zoom-in">
         <img src="assets/images/Bed.png" alt="Wooden Bed" class="w-full h-56 sm:h-64 object-cover transform group-hover:scale-110 transition duration-300">
         <div class="absolute inset-0 bg-[#3e2723]/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
           <span class="text-white text-lg sm:text-xl font-logo">Wooden Bed</span>
         </div>
-      </div>
-      <div class="relative group overflow-hidden rounded-lg shadow-lg cursor-pointer product-card" data-aos="zoom-in" data-aos-delay="100" data-title="Dining Table" data-img="assets/images/diningTable.png" data-desc="A spacious dining table made from hand-selected hardwood, perfect for family gatherings.">
+      </a>
+      <a href="categories/dining.html" class="relative group overflow-hidden rounded-lg shadow-lg cursor-pointer product-card block" data-aos="zoom-in" data-aos-delay="100">
         <img src="assets/images/diningTable.png" alt="Dining Table" class="w-full h-56 sm:h-64 object-contain bg-[#f8f5f2] transform group-hover:scale-110 transition duration-300" onerror="this.onerror=null;this.src='assets/images/default.png';">
         <div class="absolute inset-0 bg-[#3e2723]/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
           <span class="text-white text-lg sm:text-xl font-logo">Dining Table</span>
         </div>
-      </div>
-      <div class="relative group overflow-hidden rounded-lg shadow-lg cursor-pointer product-card" data-aos="zoom-in" data-aos-delay="200" data-title="Recliner" data-img="assets/images/recliner.png" data-desc="A plush recliner chair for ultimate relaxation and comfort.">
+      </a>
+      <a href="categories/recliners.html" class="relative group overflow-hidden rounded-lg shadow-lg cursor-pointer product-card block" data-aos="zoom-in" data-aos-delay="200">
         <img src="assets/images/recliner.png" alt="Recliner" class="w-full h-56 sm:h-64 object-cover object-top transform group-hover:scale-110 transition duration-300" onerror="this.onerror=null;this.src='assets/images/default.png';">
         <div class="absolute inset-0 bg-[#3e2723]/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
           <span class="text-white text-lg sm:text-xl font-logo">Recliner</span>
         </div>
-      </div>
-      <div class="relative group overflow-hidden rounded-lg shadow-lg cursor-pointer product-card" data-aos="zoom-in" data-aos-delay="100" data-title="Cupboard" data-img="assets/images/cupboard.png" data-desc="A tall bookshelf with adjustable shelves, crafted for both style and storage in any room.">
-        <img src="assets/images/cupboard.png" alt="Bookshelf" class="w-full h-56 sm:h-64 object-top transform group-hover:scale-110 transition duration-300">
+      </a>
+      <a href="categories/storage.html" class="relative group overflow-hidden rounded-lg shadow-lg cursor-pointer product-card block" data-aos="zoom-in" data-aos-delay="100">
+        <img src="assets/images/cupboard.png" alt="Cupboard" class="w-full h-56 sm:h-64 object-top transform group-hover:scale-110 transition duration-300">
         <div class="absolute inset-0 bg-[#3e2723]/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
           <span class="text-white text-lg sm:text-xl font-logo">Cupboard</span>
         </div>
-      </div>
-      <div class="relative group overflow-hidden rounded-lg shadow-lg cursor-pointer product-card" data-aos="zoom-in" data-title="Rest Chair" data-img="assets/images/chairs.png" data-desc="A comfortable rest chair with elegant curves and solid wood frame, ideal for relaxing moments.">
+      </a>
+      <a href="categories/chairs.html" class="relative group overflow-hidden rounded-lg shadow-lg cursor-pointer product-card block" data-aos="zoom-in">
         <img src="assets/images/chairs.png" alt="Rest Chair" class="w-full h-56 sm:h-64 object-contain bg-[#f8f5f2] transform group-hover:scale-110 transition duration-300" onerror="this.onerror=null;this.src='assets/images/default.png';">
         <div class="absolute inset-0 bg-[#3e2723]/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
           <span class="text-white text-lg sm:text-xl font-logo">Rest Chair</span>
         </div>
-      </div>
-      <div class="relative group overflow-hidden rounded-lg shadow-lg cursor-pointer product-card" data-aos="zoom-in" data-title="Sitting Chair" data-img="assets/images/sittings.png" data-desc="A stylish accent chair with a unique design, adding character to any space.">
-        <img src="assets/images/sittings.png" alt="Accent Chair" class="w-full h-56 sm:h-64 object-cover transform group-hover:scale-110 transition duration-300">
+      </a>
+      <a href="categories/chairs.html" class="relative group overflow-hidden rounded-lg shadow-lg cursor-pointer product-card block" data-aos="zoom-in">
+        <img src="assets/images/sittings.png" alt="Sitting Chair" class="w-full h-56 sm:h-64 object-cover transform group-hover:scale-110 transition duration-300">
         <div class="absolute inset-0 bg-[#3e2723]/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
           <span class="text-white text-lg sm:text-xl font-logo">Sitting Chair</span>
         </div>
-      </div>
-      <div class="relative group overflow-hidden rounded-lg shadow-lg cursor-pointer product-card" data-aos="zoom-in" data-aos-delay="200" data-title="Sofa Set" data-img="assets/images/sofaSet1.png" data-desc="A minimalist coffee table with a smooth finish, perfect for living rooms and lounges.">
-        <img src="assets/images/sofaSet1.png" alt="Coffee Table" class="w-full h-56 sm:h-64 object-cover transform group-hover:scale-110 transition duration-300">
+      </a>
+      <a href="categories/sofas.html" class="relative group overflow-hidden rounded-lg shadow-lg cursor-pointer product-card block" data-aos="zoom-in" data-aos-delay="200">
+        <img src="assets/images/sofaSet1.png" alt="Sofa Set" class="w-full h-56 sm:h-64 object-cover transform group-hover:scale-110 transition duration-300">
         <div class="absolute inset-0 bg-[#3e2723]/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
           <span class="text-white text-lg sm:text-xl font-logo">Sofa Set</span>
         </div>
-      </div>
-      <div class="relative group overflow-hidden rounded-lg shadow-lg cursor-pointer product-card" data-aos="zoom-in" data-aos-delay="100" data-title="Sideboard" data-img="https://images.unsplash.com/photo-1519985176271-adb1088fa94c?auto=format&fit=crop&w=600&q=80" data-desc="A versatile sideboard with ample storage, perfect for dining or living areas.">
-        <img src="https://images.unsplash.com/photo-1519985176271-adb1088fa94c?auto=format&fit=crop&w=600&q=80" alt="Sideboard" class="w-full h-56 sm:h-64 object-cover transform group-hover:scale-110 transition duration-300">
+      </a>
+      <a href="categories/storage.html" class="relative group overflow-hidden rounded-lg shadow-lg cursor-pointer product-card block" data-aos="zoom-in" data-aos-delay="100">
+        <img src="assets/images/WhatsApp Image 2025-09-20 at 10.53.22 AM.jpeg" alt="Sideboard" class="w-full h-56 sm:h-64 object-cover transform group-hover:scale-110 transition duration-300" onerror="this.onerror=null;this.src='assets/images/default.jpg';">
         <div class="absolute inset-0 bg-[#3e2723]/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
           <span class="text-white text-lg sm:text-xl font-logo">Sideboard</span>
         </div>
-      </div>
-      <div class="relative group overflow-hidden rounded-lg shadow-lg cursor-pointer product-card" data-aos="zoom-in" data-aos-delay="200" data-title="Work Desk" data-img="https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=600&q=80" data-desc="A functional work desk with a sleek design, ideal for home offices and study rooms.">
-        <img src="https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=600&q=80" alt="Work Desk" class="w-full h-56 sm:h-64 object-cover transform group-hover:scale-110 transition duration-300">
+      </a>
+      <a href="categories/office.html" class="relative group overflow-hidden rounded-lg shadow-lg cursor-pointer product-card block" data-aos="zoom-in" data-aos-delay="200">
+        <img src="assets/images/WhatsApp Image 2025-09-20 at 10.53.43 AM.jpeg" alt="Work Desk" class="w-full h-56 sm:h-64 object-cover transform group-hover:scale-110 transition duration-300" onerror="this.onerror=null;this.src='assets/images/default.jpg';">
         <div class="absolute inset-0 bg-[#3e2723]/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
           <span class="text-white text-lg sm:text-xl font-logo">Work Desk</span>
         </div>
-      </div>
+      </a>
     </div>
   </section>
-  <!-- Product Modal Overlay -->
-  <div id="product-modal" class="fixed inset-0 z-50 hidden items-center justify-center modal-bg">
-    <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-lg sm:max-w-2xl h-[96vh] sm:h-auto sm:w-[98vw] flex flex-col items-center animate-fadeInUp scale-95 opacity-0 transition-all duration-200 overflow-y-auto sm:overflow-visible">
-      <button id="modal-close" class="absolute top-2 right-2 sm:-top-4 sm:-right-4 bg-[#8d6e63] text-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg hover:bg-[#3e2723] text-2xl font-bold focus:outline-none z-10">&times;</button>
-      <div class="w-full flex flex-col items-center p-2 sm:p-8 h-full">
-        <!-- Carousel -->
-        <div class="relative w-full flex items-center justify-center mb-2 sm:mb-4" style="height:40vh; min-height:220px; max-height:340px;">
-          <button id="carousel-prev" class="absolute left-2 sm:left-2 right-auto top-1/2 -translate-y-1/2 text-[#3e2723] hover:text-[#8d6e63] bg-transparent rounded-full w-12 h-12 flex items-center justify-center z-20 focus:outline-none transition-all duration-200">
-            <svg class="w-10 h-10 sm:w-12 sm:h-12" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
-          </button>
-          <div class="overflow-hidden w-full rounded-xl h-full">
-            <div id="carousel-images" class="flex transition-transform duration-300 h-full" style="will-change: transform;">
-              <!-- Images will be injected here -->
-            </div>
-          </div>
-          <button id="carousel-next" class="absolute right-2 sm:right-2 left-auto top-1/2 -translate-y-1/2 text-[#3e2723] hover:text-[#8d6e63] bg-transparent rounded-full w-12 h-12 flex items-center justify-center z-20 focus:outline-none transition-all duration-200">
-            <svg class="w-10 h-10 sm:w-12 sm:h-12" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-          </button>
-        </div>
-        <!-- Carousel dots for mobile -->
-        <div id="carousel-dots" class="flex justify-center gap-2 mb-2 sm:mb-6"></div>
-        <h3 id="modal-title" class="font-logo text-xl sm:text-3xl mb-2 text-center text-[#3e2723] font-bold"></h3>
-        <div class="w-12 h-1 bg-[#8d6e63] rounded-full mb-2 sm:mb-4 mx-auto"></div>
-        <p id="modal-desc" class="text-base sm:text-lg text-[#5d4037] text-center mb-2"></p>
-      </div>
-    </div>
-  </div>
-  <style>
-  @media (max-width: 640px) {
-    #product-modal > div.relative {
-      border-radius: 0 !important;
-      max-width: 100vw !important;
-      width: 100vw !important;
-      height: 100vh !important;
-      min-height: 100vh !important;
-      padding: 0 !important;
-    }
-    #product-modal .p-2, #product-modal .p-8 {
-      padding: 0.5rem !important;
-    }
-    #product-modal h3, #product-modal p {
-      padding-left: 0.5rem;
-      padding-right: 0.5rem;
-    }
-    #carousel-images img {
-      height: 44vh !important;
-      min-height: 180px !important;
-      max-height: 52vh !important;
-    }
-    #carousel-prev {
-      left: 0.25rem !important;
-      right: auto !important;
-    }
-    #carousel-next {
-      right: 0.25rem !important;
-      left: auto !important;
-    }
-    #carousel-prev, #carousel-next {
-      width: 3rem !important;
-      height: 3rem !important;
-      background: transparent !important;
-      box-shadow: none !important;
-      padding: 0 !important;
-    }
-    #carousel-prev svg, #carousel-next svg {
-      width: 2.2rem !important;
-      height: 2.2rem !important;
-    }
-  }
-  </style>
   <!-- About Section -->
   <section id="about" class="max-w-2xl sm:max-w-4xl mx-auto py-12 sm:py-20 px-4 flex flex-col md:flex-row gap-8 sm:gap-10 items-stretch">
     <img src="https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=1500&q=80" 
@@ -270,20 +327,34 @@
       <button type="submit" class="bg-[#8d6e63] text-white px-6 py-2 rounded shadow hover:bg-[#6d4c41] transition w-full sm:w-auto">Send Message</button>
     </form>
     <div class="flex justify-center gap-6 mt-4" data-aos="fade-up">
-      <a href="#" aria-label="Instagram" class="text-[#8d6e63] hover:text-[#3e2723] transition">
-        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5A4.25 4.25 0 0 0 20.5 16.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5zm4.25 3.25a5.25 5.25 0 1 1 0 10.5 5.25 5.25 0 0 1 0-10.5zm0 1.5a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5zm5.13 1.12a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
-      </a>
-      <a href="#" aria-label="Facebook" class="text-[#8d6e63] hover:text-[#3e2723] transition">
-        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.522-4.477-10-10-10S2 6.478 2 12c0 5.005 3.657 9.128 8.438 9.877v-6.987h-2.54v-2.89h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.242 0-1.63.771-1.63 1.562v1.875h2.773l-.443 2.89h-2.33v6.987C18.343 21.128 22 17.005 22 12z"/></svg>
-      </a>
+      <div class="flex justify-center gap-6 mt-4" data-aos="fade-up">
+        <!-- WhatsApp -->
+        <a href="https://wa.me/919173398855" 
+           target="_blank" 
+           aria-label="WhatsApp" 
+           class="text-[#8d6e63] hover:text-[#25D366] transition-colors duration-300 hover:scale-110 transform">
+            <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893A11.821 11.821 0 0020.465 3.516"/>
+            </svg>
+        </a>
+        
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/jinendra_furniture" 
+           target="_blank" 
+           aria-label="Instagram" 
+           class="text-[#8d6e63] hover:text-[#E4405F] transition-colors duration-300 hover:scale-110 transform">
+            <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5A4.25 4.25 0 0 0 20.5 16.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5zm4.25 3.25a5.25 5.25 0 1 1 0 10.5 5.25 5.25 0 0 1 0-10.5zm0 1.5a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5zm5.13 1.12a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+            </svg>
+        </a>
     </div>
   </section>
   <script src="js/main.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
     AOS.init({
-      duration: 800,
-      once: true
+        duration: 1000,
+        once: true
     });
   </script>
 </body>
