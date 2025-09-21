@@ -85,7 +85,8 @@ let currentSlide = 0;
     function animateLogoToNavbar() {
       const slider = document.getElementById("sliderLogo");
       const navbar = document.getElementById("navbarLogo");
-      if (!slider || !navbar) return;
+      const sliderText = document.getElementById("sliderText"); // new
+      if (!slider || !navbar || !sliderText) return;
     
       const sRect = slider.getBoundingClientRect();
       const nRect = navbar.getBoundingClientRect();
@@ -94,8 +95,9 @@ let currentSlide = 0;
         return;
       }
     
-      slider.style.opacity = "0";
+      slider.style.opacity = "0"; // hide slider logo
     
+      // Clone the slider logo
       const clone = slider.cloneNode(true);
       clone.id = "sliderLogoClone";
       clone.style.position = "fixed";
@@ -107,26 +109,27 @@ let currentSlide = 0;
       clone.style.pointerEvents = "none";
       clone.style.zIndex = "9999";
       clone.style.opacity = "1";
+      clone.style.transformOrigin = "center center";
       document.body.appendChild(clone);
     
-      // Original centers
-      const sCenterX = sRect.left + sRect.width / 2 + sRect.width / 4;
+      // Target scale
+      const targetScale = nRect.width / sRect.width;
+    
+      // Calculate movement
+      const sCenterX = sRect.left + sRect.width / 2;
       const sCenterY = sRect.top + sRect.height / 2;
     
-      // Target point slightly to the left of navbar logo
-      const nTargetX = nRect.left;
-      const nTargetY = nRect.top + nRect.height / 2 - 8;
+      const nCenterX = nRect.left + nRect.width / 2;
+      const nCenterY = nRect.top + nRect.height / 2 - 8;
     
-      const deltaX = nTargetX - sCenterX;
-      const deltaY = nTargetY - sCenterY;
+      const deltaX = nCenterX - sCenterX;
+      const deltaY = nCenterY - sCenterY;
     
-      // Target scale
-      let targetScale = nRect.width / sRect.width;
-      if (window.innerWidth <= 768) {
-        targetScale = 0.3;
-      }
+      // Calculate text move distance (upward)
+      const textRect = sliderText.getBoundingClientRect();
+      const targetTextY = textRect.top - sRect.height / 2; // move up by half logo height
     
-      // Timeline animation
+      // Timeline
       const tl = gsap.timeline();
       tl.to(clone, {
         x: deltaX,
@@ -134,7 +137,15 @@ let currentSlide = 0;
         scale: targetScale,
         duration: 1.2,
         ease: "power2.inOut"
-      });
+      }, 0); // start immediately
+    
+      // Animate text upward at the same time
+      tl.to(sliderText, {
+        y: -sRect.height / 2, // same as distance calculated above
+        duration: 1.2,
+        ease: "power2.inOut"
+      }, 0);
+    
       tl.to(clone, { opacity: 0, duration: 0.25 }, "-=0.2");
       tl.to(navbar, { opacity: 1, scale: 1.05, duration: 0.25 }, "-=0.15");
       tl.to(navbar, { scale: 1, duration: 0.25, ease: "back.out(1.3)" });
@@ -142,7 +153,7 @@ let currentSlide = 0;
       tl.call(() => {
         clone.remove();
       });
-    }        
+    }         
     
     window.addEventListener("load", () => {
       animateLogoToNavbar();
