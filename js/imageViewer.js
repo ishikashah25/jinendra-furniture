@@ -3,10 +3,10 @@
     const productGalleries = {
         'cozy-sofa-bed': [
           '../assets/images/SofaCumBed.png',
-          '../assets/images/sofaCumBed2.png',
+          '../assets/images/sofaCumBed1-2.png',
         ],
         'modern-fabric-bed': [
-          '../assets/images/default.jpg'
+          '../assets/images/sofacumBed2.jpeg'
         ]
       };
   
