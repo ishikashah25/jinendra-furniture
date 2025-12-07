@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/imageViewer.css">
   <style>
     body { font-family: 'Lato', sans-serif; }
     h1, h2, h3, .font-logo { font-family: 'Playfair Display', serif; }
@@ -60,8 +61,13 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         <!-- Product 1 -->
         <div class="group bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300" data-aos="fade-up">
-          <div class="aspect-square overflow-hidden">
-            <img src="../assets/images/sofaCumBed2.png" alt="Cozy Sofa Cum Bed" class="w-full h-full object-contain group-hover:scale-110 transition duration-500">
+          <div class="aspect-square overflow-hidden relative" data-gallery="cozy-sofa-bed">
+            <img src="../assets/images/SofaCumBed.png" alt="Cozy Sofa Cum Bed" class="w-full h-full object-contain group-hover:scale-110 transition duration-500">
+            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center">
+              <span class="text-white font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[#8d6e63] px-4 py-2 rounded-lg">
+                View Gallery
+              </span>
+            </div>
           </div>
           <div class="p-6">
             <h3 class="font-logo text-xl font-bold text-[#3e2723] mb-2">Cozy Sofa Cum Bed</h3>
@@ -71,8 +77,13 @@
 
         <!-- Product 2 -->
         <div class="group bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
-          <div class="aspect-square overflow-hidden">
+          <div class="aspect-square overflow-hidden relative" data-gallery="modern-fabric-bed">
             <img src="../assets/images/default.jpg" alt="Modern Fabric Sofa Cum Bed" class="w-full h-full object-contain group-hover:scale-110 transition duration-500">
+            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center">
+              <span class="text-white font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[#8d6e63] px-4 py-2 rounded-lg">
+                View Gallery
+              </span>
+            </div>
           </div>
           <div class="p-6">
             <h3 class="font-logo text-xl font-bold text-[#3e2723] mb-2">Modern Fabric Sofa Cum Bed</h3>
@@ -86,8 +97,8 @@
   <!-- Call to Action -->
   <section class="py-16 bg-[#3e2723]">
     <div class="max-w-4xl mx-auto text-center px-4">
-      <h2 class="font-logo text-3xl sm:text-4xl text-white mb-6" data-aos="fade-up">Organize Your Space</h2>
-      <p class="text-lg text-white/90 mb-8" data-aos="fade-up" data-aos-delay="100">Find the perfect storage solutions to keep your home organized and clutter-free.</p>
+      <h2 class="font-logo text-3xl sm:text-4xl text-white mb-6" data-aos="fade-up">Transform Your Living Space</h2>
+      <p class="text-lg text-white/90 mb-8" data-aos="fade-up" data-aos-delay="100">Discover the perfect sofa cum bed that combines comfort, style, and functionality.</p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="200">
         <a href="../index.html#contact" class="bg-[#8d6e63] hover:bg-[#6d4c41] text-white px-8 py-3 rounded-lg transition duration-300">
           Contact Us
@@ -99,7 +110,36 @@
     </div>
   </section>
 
+  <!-- Image Viewer Modal -->
+  <div id="imageViewerModal" class="image-viewer-modal">
+    <div class="image-viewer-overlay" onclick="closeViewer()"></div>
+    <button class="image-viewer-close" aria-label="Close viewer" onclick="closeViewer()">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M18 6L6 18M6 6l12 12"/>
+      </svg>
+    </button>
+    <div class="image-viewer-content">
+      <button class="image-viewer-nav image-viewer-prev" aria-label="Previous image" onclick="showPreviousImage()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>
+      </button>
+      <div class="image-viewer-image-container" id="imageContainer">
+        <img id="viewerImage" src="" alt="Product view" class="image-viewer-image">
+        <div class="image-viewer-counter">
+          <span id="viewerCounter">1 / 1</span>
+        </div>
+      </div>
+      <button class="image-viewer-nav image-viewer-next" aria-label="Next image" onclick="showNextImage()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
   <script src="../js/main.js"></script>
+  <script src="../js/imageViewer.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
     AOS.init({
